@@ -1,0 +1,95 @@
+# My setup for screen
+
+# unset $DISPLAY
+# unsetenv DISPLAY
+
+# Sets whether screen will automatically detach upon hangup,  which
+# saves all  your  running  programs  until  they  are resumed  with  a
+# screen  -r  command.
+autodetach            on
+
+# This affects the copying of text regions with the `C-a  ['command.
+crlf                  off
+
+# Same  as the login command except that the default setting for new
+# windows is changed.
+deflogin              off
+
+# If  set  to  "on",  screen will append to the "hardcopy.n"files
+# created by the  command  "C-a  h",  otherwise  these files are
+# overwritten each time.  Default is `off'.
+hardcopy_append       on
+
+# Select whether you want to see the copyright notice during startup.
+startup_message       off
+
+# Sets the visual bell setting for this window.
+vbell                 off
+
+# Use this command to modify your terminal's  termcap  entry without
+# going through all the hassles involved in creating a custom termcap
+# entry.
+# termcapinfo rxvt     ti@:te@
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+
+# Same  as  the  scrollback  command except that the default setting
+# for new windows is  changed.
+defscrollback         1000
+
+# Define  the  time  that  all windows monitored for silence should
+# wait before displaying a message.
+silencewait           15
+
+# My Shell - the one and only ;)
+shell                 zsh
+
+# This  command controls the display of the window captions.
+caption always "%{= kc}%?%-Lw%?%{= kY}%n*%f %t%?(%u)%?%{= kc}%?%+Lw%?"
+
+# This  command configures the use and emulation of the ter minal's
+# hardstatus line.
+# hardstatus alwayslastline "%?%{yk}%-Lw%?%{wb}%n*%f %t%?(%u)%?%?%{yk}%+Lw%?"
+#
+# hardstatus alwayslastline "%{kr} %H %{ky} load[%l] %{kg} %d.%m.%Y %c %{+b}%{yb} %=[%n%f %t]"
+#
+# backtick 1 0 1 /home/rele/devel/ruby/stuff/network.rb
+# hardstatus alwayslastline "%{g} %H %{y} load[%l] %{g} %d.%m.%Y %c:%s %u %{y} %1` %=[%n%f %t]"
+
+hardstatus alwayslastline "%{g} %H %{y} load[%l] %{g} %d.%m.%Y %c:%s %u %{y} %=[%n%f %t]"
+
+# Change the way screen does highlighting for  text  marking and
+# printing  messages.
+sorendition    kG
+
+# When  any  activity  occurs in a background window that is being
+# monitored, screen displays  a  notification  in  the message  line.
+activity '*knock* *knock* Wake up ... window %n'
+# When a bell character is  sent  to  a  background  window screen
+# displays  a notification in the message line.
+bell_msg '*knock* *knock* Follow the white rabbit in window %n'
+
+# The  message  specified  here  is output whenever a `Power detach'
+# was performed.
+pow_detach_msg        "BYE"
+
+# Sets the visual bell message. message is  printed  to  the status
+# line if the window receives a bell character (^G).
+vbell_msg             " *beep* "
+
+# Some keybindings.
+#bind .
+bind ^\
+bindkey -k k8 next
+bind \\
+bind M screen -t 'Mutt' 1 mutt
+bind V screen -t 'Vim' 3 vim
+bind I screen -t 'irssi' 4 irssi
+bind G screen -t 'google' 5 links www.google.com
+bind C screen -t 'cplay' 7 cplay
+bind T screen -t 'console' 9
+bind X lockscreen
+
+msgwait 1
+version
+msgwait 2
+echo "cya in hell!"
