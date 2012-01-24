@@ -179,6 +179,7 @@ if [ $(uname) = "Darwin" ]; then
   export PATH=$PATH:/sw/bin
   export MANPATH=/sw/share/man:/usr/share/man:/usr/local/teTeX/man:/usr/local/man
   alias ruby="/usr/local/bin/ruby"
+  alias ping="/sbin/ping"
 fi
 
 if [ $(uname) = "NetBSD" ]; then
@@ -254,13 +255,18 @@ WATCHFMT="[%B%t%b] %B%n%b has %a %B%l%b from %B%M%b"
 # security setting
 umask 022
 
+backward-delete-to-slash () {
+  local WORDCHARS=${WORDCHARS//\//}
+  zle .backward-delete-word
+}
+zle -N backward-delete-to-slash
+
 # key bindings
 bindkey -v
 bindkey "^A"    beginning-of-line
 bindkey "^[[A"  up-line-or-search
 bindkey "^[[B"  down-line-or-search
 bindkey " "     magic-space
-bindkey "^W"    backward-delete-word
 bindkey "^B"    backward-word
 bindkey "^E"    end-of-line
 bindkey "^D"    delete-char
@@ -269,6 +275,10 @@ bindkey "^X"    list-choices
 bindkey "^K"    vi-kill-eol
 bindkey "^U"    backward-kill-line
 bindkey "\e[3~" delete-char
+
+## ctrl + w binding
+bindkey "^W" backward-delete-to-slash
+# bindkey "^W"    backward-delete-word
 
 # quick listing of my latest mails
 function listmails() { grep -h "^Subject:" $MAILDIR/cur/*|tail }
