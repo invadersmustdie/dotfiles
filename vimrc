@@ -38,16 +38,18 @@ set wildmenu                    " completion on the commandline shows a menu
 set completeopt=menu,preview
 
 " set textwidth=70
-" set expandtab
-" set sw=2 smartindent softtabstop=2 et ts=4
+set expandtab
+set sw=2 smartindent softtabstop=2 et ts=4
 set title
 
 " show spaces,tabs,newlines
-" set list
-" set lcs=tab:»·
-" set lcs+=trail:·
+set list
+set lcs=tab:»·
+set lcs+=trail:·
 " set lcs+=eol:$
 cab Wq wq
+
+filetype plugin on
 
 " enables folds
 " set nofoldenable
@@ -56,7 +58,7 @@ cab Wq wq
 " set foldcolumn=1
 
 " gui options
-set guifont=Inconsolata\ 9
+" set guifont=Inconsolata\ 9
 " set guifont=DejaVu\ Sans\ Mono\ 9
 " set guifont=Consolas\ 9
 " set guifont=Inconsolata\ 11
@@ -104,7 +106,7 @@ nmap tn :tabnext<CR>
 nmap tp :tabprev<CR>
 nmap to :tabnew<CR>
 
-" map Q :call BufferList()<CR>
+map Q :call BufferList()<CR>
 " map W :NERDTreeToggle<CR>
 map T :Tlist<CR>
 
@@ -125,6 +127,7 @@ set cinoptions=:0,p0,t0
 set cinwords=if,else,while,do,for,switch,case
 set formatoptions=tcqr
 set cindent
+
 
 "shameless copied from an unknown rc - but quite useful
 " gzip and bzip2 compressed files editing
@@ -181,14 +184,6 @@ augroup php4
   set syntax=php
 augroup END
 
-function! SwitchProject(pname)
-  if match(a:pname, "middleware") == 1
-    call "load_middleware"
-  else
-    execute "ls"
-  endif
-endfunction
-
 function! EncodeHtmlUmlauts()
   if search("ä")  | :%s/ä/\&auml;/g |endif
   if search("Ä")  | :%s/Ä/\&Auml;/g | endif
@@ -227,7 +222,7 @@ au Filetype ruby let b:simplefold_nestable_end_expr =
 
 " set cursorlinie
 " set foldmethod=marker
-" set foldenable
+set foldenable
 
 " syntax always on
 syntax enable
@@ -238,3 +233,5 @@ endfunction
 
 " enables ruby syntax check on every save method
 " autocmd BufWritePost *.rb call CheckRubySyntax()
+
+call pathogen#infect()
