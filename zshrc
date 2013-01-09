@@ -17,6 +17,7 @@ export WHITE=$'%{\e[1;37m}'
 export white=$'%{\e[0;37m}'
 export NC=$'%{\e[0m%}'
 
+
 # prompt
 # PS1='%{%}[%{%}%B%n@%m%b%{%}]%{%} {%~}$ '
 # PS1='%{%}(%{%}%B%n@%m%b%{%})%{%} (%~) --> '
@@ -26,9 +27,10 @@ export NC=$'%{\e[0m%}'
 # PS1=$'%{\e[1;31m%}%B(%b%{\e[0m%}%n@%m%{\e[1;31m%})%{\e[0m%} : %{\e[1;31m%}(%{\e[0m%}%~%{\e[1;31m%})%{\e[0m%}: '
 # PS1='%{%}[%{%}%n@%m%{%} %C]$ '
 PS1=$'%{\e[1;32m%}%B[%b%{\e[0m%}%n@%m%{\e[1;32m%}%B]%b (%{\e[0m%}%~%{\e[1;32m%}) %{\e[0m%}'
+ORIGINAL_PS1=$PS1
 
 # vars
-path=(/bin /usr/bin /usr/local/bin /usr/X11R6/bin /opt/bin)
+path=(/bin /usr/local/bin /usr/bin /usr/X11R6/bin /opt/bin)
 
 # new style completion
 if [ -d /usr/share/zsh/$ZSH_VERSION/functions/Completion/ ]; then
@@ -115,7 +117,8 @@ else
   ssh-agent|head -n2 > $HOME/.ssh/agent
   chmod 0700 $HOME/.ssh/agent
   . $HOME/.ssh/agent .
-  ssh-add ~/.ssh/id_dsa
+  ssh-add ~/.ssh/id_rsa
+  ssh-add ~/.ssh/github.priv
 fi
 
 # local bindir
@@ -177,8 +180,7 @@ if [ $(uname) = "Darwin" ]; then
   echo "	   $USER logged in on $TTY"
   echo
   export PATH=$PATH:/sw/bin
-  export MANPATH=/sw/share/man:/usr/share/man:/usr/local/teTeX/man:/usr/local/man
-  alias ruby="/usr/local/bin/ruby"
+  export MANPATH=/sw/share/man:/usr/share/man:/usr/local/teTeX/man:/usr/local/man:/usr/local/share/man
   alias ping="/sbin/ping"
 fi
 
@@ -246,7 +248,12 @@ alias gem_local="gem install --install-dir=~/.gem/ruby/1.8/ --no-rdoc --no-ri"
 alias c="ruby script/console"
 alias dist-ssh='noglob dist-ssh'
 alias git="nocorrect git"
-alias ack=ack-grep
+
+type -p ack-grep > /dev/null
+
+if [ $? -eq 0 ]; then
+  alias ack=ack-grep
+fi
 
 # watch for logins
 watch=(root rugek rele)
@@ -475,10 +482,10 @@ if [ -d /home/rele/env/xp ]; then
   PATH=$PATH:/home/rele/env/xp
 fi
 
-GIT_AUTHOR_NAME="rugek"
-GIT_AUTHOR_EMAIL="rugek@dirtyhack.net"
-GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
-GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
+#GIT_AUTHOR_NAME="rugek"
+#GIT_AUTHOR_EMAIL="rugek@dirtyhack.net"
+#GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
+#GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
 
 unset GEM_HOME
 
@@ -489,3 +496,31 @@ rvm_loaded_flag=0
 for i in ~/.zsh_extras/*; do
   source $i
 done
+
+typeset -ga chpwd_functions
+typeset -ga preexec_functions
+typeset -ga precmd_functions
+
+chpwd_functions+='zsh_git_update_vars'
+preexec_functions+='zsh_git_update_vars'
+precmd_functions+='zsh_git_update_vars'
+
+zsh_git_update_vars() {
+  current_git_branch=`git branch --no-color 2>/dev/null|sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+
+  if [ ! -z $current_git_branch ]; then
+    if [ $__GIT_PROMPT -eq 1 ]; then
+      PS1=$ORIGINAL_PS1
+    fi
+
+    PS1="${PS1}${red}[${current_git_branch}]${NC} "
+    __GIT_PROMPT=1
+  else
+    PS1=$ORIGINAL_PS1
+    __GIT_PROMPT=0
+  fi
+}
+
+export PATH=$PATH:~/env/groovy-2.0.0/bin
+
+source ~/.rvm/scripts/rvm
