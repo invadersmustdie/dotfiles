@@ -493,9 +493,11 @@ rvm_loaded_flag=0
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
 # load local configurations
-for i in ~/.zsh_extras/*; do
-  source $i
-done
+if [ -d ~/.zsh_extras ]; then
+  for i in ~/.zsh_extras/*; do
+    source $i
+  done
+fi
 
 typeset -ga chpwd_functions
 typeset -ga preexec_functions
@@ -522,5 +524,7 @@ zsh_git_update_vars() {
 }
 
 export PATH=$PATH:~/env/groovy-2.0.0/bin
+if [ -e ~/.rvm/scripts/rvm ]; then
+  source ~/.rvm/scripts/rvm
+fi
 
-source ~/.rvm/scripts/rvm
