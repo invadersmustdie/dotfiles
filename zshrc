@@ -30,7 +30,7 @@ PS1=$'%{\e[1;32m%}%B[%b%{\e[0m%}%n@%m%{\e[1;32m%}%B]%b (%{\e[0m%}%~%{\e[1;32m%})
 ORIGINAL_PS1=$PS1
 
 # vars
-path=(/bin /usr/local/bin /usr/bin /usr/X11R6/bin /opt/bin)
+path=(/bin /usr/local/bin /usr/sbin /usr/bin /usr/X11R6/bin /opt/bin)
 
 # new style completion
 if [ -d /usr/share/zsh/$ZSH_VERSION/functions/Completion/ ]; then
