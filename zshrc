@@ -521,6 +521,13 @@ zsh_git_update_vars() {
   fi
 }
 
+news() {
+  echo -e "\033]50;SetProfile=easyReading\a"
+  echo -ne "\033]0;News\a";\
+  newsbeuter $*
+  echo -e "\033]50;SetProfile=\a"
+}
+
 export PATH=$PATH:~/env/groovy-2.0.0/bin
 
 source ~/.rvm/scripts/rvm
