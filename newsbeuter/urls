@@ -1,0 +1,42 @@
+https://whispersystems.org/blog/rss.xml +security
+http://www.thoughtworks.com/rss/insights.xml +tech
+http://news.ycombinator.com/rss +tech
+http://techblog.netflix.com/rss.xml +tech
+http://rss.slashdot.org/Slashdot/slashdot +tech
+http://rss.packetstormsecurity.org/news/ +security
+http://www.reddit.com/r/technology/.rss +news
+http://www.reddit.com/r/springsource/.rss +lang
+http://www.reddit.com/r/java/.rss +lang
+http://www.reddit.com/r/golang/.rss +lang
+http://www.reddit.com/r/rust/.rss +lang
+http://www.reddit.com/r/security/.rss +lang
+
+https://github.com/blog/all.atom +produktNews
+http://slackhq.com/rss +produktNews
+http://blog.bittorrent.com/category/engineering/feed/ +produktNews
+http://this-week-in-rust.org/atom.xml +lang
+http://www.reddit.com/r/rust +lang
+http://ruby.awsblog.com/blog/feed/recentPosts.rss +tech
+
+http://kief.com/atom.xml +people
+http://martinfowler.com/feed.atom +people
+http://erik.doernenburg.com/feed/ +people
+http://www.russmiles.com/1/feed +people
+
+http://hak5.org/feed +video
+
+http://www.johnmaxwell.com/rss/ +leadership
+http://microservices.io/feed.xml
+
+https://firstlook.org/theintercept/feed/?rss
+https://blog.torproject.org/blog/feed
+
+http://feeds.feedburner.com/AmazonWebServicesBlog
+http://www.awsarchitectureblog.com/atom.xml
+https://blog.twitter.com/api/blog.rss?name=engineering
+https://code.facebook.com/posts/rss
+http://www.codingthearchitecture.com/rss.xml
+
+http://www.javacodegeeks.com/feed/
+http://techblog.realestate.com.au/feed/
+https://www.inovex.de/de/rss/?type=200
