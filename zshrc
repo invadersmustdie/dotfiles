@@ -30,7 +30,7 @@ PS1=$'%{\e[1;32m%}%B[%b%{\e[0m%}%n@%m%{\e[1;32m%}%B]%b (%{\e[0m%}%~%{\e[1;32m%})
 ORIGINAL_PS1=$PS1
 
 # vars
-path=(/bin /usr/local/bin /usr/bin /usr/X11R6/bin /opt/bin)
+path=(/bin /usr/local/bin /usr/sbin /usr/bin /usr/X11R6/bin /opt/bin)
 
 # new style completion
 if [ -d /usr/share/zsh/$ZSH_VERSION/functions/Completion/ ]; then
@@ -493,9 +493,11 @@ rvm_loaded_flag=0
 [[ -s $HOME/.rvm/scripts/rvm ]] && source $HOME/.rvm/scripts/rvm
 
 # load local configurations
-for i in ~/.zsh_extras/*; do
-  source $i
-done
+if [ -d ~/.zsh_extras ]; then
+  for i in ~/.zsh_extras/*; do
+    source $i
+  done
+fi
 
 typeset -ga chpwd_functions
 typeset -ga preexec_functions
@@ -529,5 +531,10 @@ news() {
 }
 
 export PATH=$PATH:~/env/groovy-2.0.0/bin
+if [ -e ~/.rvm/scripts/rvm ]; then
+  source ~/.rvm/scripts/rvm
+fi
 
-source ~/.rvm/scripts/rvm
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_17.jdk/Contents/Home
